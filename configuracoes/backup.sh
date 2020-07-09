@@ -13,4 +13,8 @@ cp /var/lib/pgsql/data/postgresql.conf $destino_config
 cp -rf /craos/api $destino_config
 
 echo "Backup dos arquivos do sistema"
-tar -cvzf $destino_htdocs/htdocs.tar.gz /opt/lamp/apache2/htdocs/ | split -b 1GB -d - "htdocs-"
+tar -czf htdocs.tar.gz /opt/lamp/apache2/htdocs &&
+split --verbose -b 1GB -d $destino_htdocs/htdocs.tar.gz $destino_htdocs/htdocs.tar.gz.part &&
+rm -rfv $destino_htdocs/htdocs.tar.gz
+
+echo "Finalizando o backup de configuração do servidor"
